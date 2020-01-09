@@ -20,7 +20,7 @@ public class WordCount extends Configured implements Tool {
         job.setJarByClass(WordCount.class);
         job.setInputFormatClass(TextInputFormat.class);
 
-        TextInputFormat.addInputPath(job, new Path("file:///G:\\kaikeba\\上课资料\\第八章\\3节mapreduce1\\MR课前资料_mr与yarn\\3、第三天\\1、wordCount_input\\数据"));
+        TextInputFormat.addInputPath(job, new Path("file:///D:\\kaikeba\\上课资料\\第八章\\3节mapreduce1\\MR课前资料_mr与yarn\\3、第三天\\1、wordCount_input\\数据"));
 
         job.setMapperClass(MyMapper.class);
         job.setMapOutputKeyClass(Text.class);
