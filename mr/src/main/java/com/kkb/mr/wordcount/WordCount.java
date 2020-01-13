@@ -6,6 +6,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
@@ -18,9 +19,16 @@ public class WordCount extends Configured implements Tool {
         Configuration conf = super.getConf();
         Job job = Job.getInstance(conf, "mrdemo1");
         job.setJarByClass(WordCount.class);
-        job.setInputFormatClass(TextInputFormat.class);
 
-        TextInputFormat.addInputPath(job, new Path("file:///D:\\kaikeba\\上课资料\\第八章\\3节mapreduce1\\MR课前资料_mr与yarn\\3、第三天\\1、wordCount_input\\数据"));
+        job.setInputFormatClass(TextInputFormat.class);
+        TextInputFormat.addInputPath(job, new Path("file:///G:\\kaikeba\\上课资料\\第八章\\3节mapreduce1\\MR课前资料_mr与yarn\\3、第三天\\1、wordCount_input\\数据"));
+
+        //job.setInputFormatClass(CombineTextInputFormat.class);
+        //CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);
+        //CombineTextInputFormat.addInputPath(job, new Path("hdfs://node01:8020/studyData"));
+
+        //规约
+        job.setCombinerClass(CombinerClass.class);
 
         job.setMapperClass(MyMapper.class);
         job.setMapOutputKeyClass(Text.class);

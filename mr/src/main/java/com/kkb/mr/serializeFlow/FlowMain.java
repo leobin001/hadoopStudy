@@ -19,18 +19,24 @@ public class FlowMain extends Configured implements Tool {
         job.setJarByClass(FlowMain.class);
 
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.addInputPath(job, new Path("file:///D:\\kaikeba\\上课资料\\第八章\\3节mapreduce1\\MR课前资料_mr与yarn\\3、第三天\\2、hadoop的序列化\\数据\\input"));
+        TextInputFormat.addInputPath(job, new Path(args[0]));
+        //TextInputFormat.addInputPath(job, new Path("file:///D:\\kaikeba\\上课资料\\第八章\\3节mapreduce1\\MR课前资料_mr与yarn\\3、第三天\\2、hadoop的序列化\\数据\\input"));
 
         job.setMapperClass(FlowMapper.class);
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(FlowBean.class);
+
+        //分区
+        job.setPartitionerClass(PartitionOwn.class);
+        job.setNumReduceTasks(Integer.parseInt(args[2]));
 
         job.setReducerClass(FlowReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
         job.setOutputFormatClass(TextOutputFormat.class);
-        TextOutputFormat.setOutputPath(job, new Path("file:///C:\\Users\\leo\\Desktop\\flowOut"));
+        TextOutputFormat.setOutputPath(job, new Path(args[1]));
+        //TextOutputFormat.setOutputPath(job, new Path("file:///C:\\Users\\leo\\Desktop\\flowOut"));
 
         boolean b = job.waitForCompletion(true);
         return b ? 0 : 1;
