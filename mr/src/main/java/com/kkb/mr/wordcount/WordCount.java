@@ -17,11 +17,18 @@ public class WordCount extends Configured implements Tool {
     @Override
     public int run(String[] strings) throws Exception {
         Configuration conf = super.getConf();
+        //conf.set("mapreduce.map.output.compress","true");
+        //conf.set("mapreduce.map.output.compress.codec","org.apache.hadoop.io.compress.SnappyCodec");
+
+        //conf.set("mapreduce.output.fileoutputformat.compress","true");
+        //conf.set("mapreduce.output.fileoutputformat.compress.type","RECORD");
+        //conf.set("mapreduce.output.fileoutputformat.compress.codec","org.apache.hadoop.io.compress.SnappyCodec");
+
         Job job = Job.getInstance(conf, "mrdemo1");
         job.setJarByClass(WordCount.class);
 
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.addInputPath(job, new Path("file:///G:\\kaikeba\\上课资料\\第八章\\3节mapreduce1\\MR课前资料_mr与yarn\\3、第三天\\1、wordCount_input\\数据"));
+        TextInputFormat.addInputPath(job, new Path("hdfs://node01:8020/wordCountData"));
 
         //job.setInputFormatClass(CombineTextInputFormat.class);
         //CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);
@@ -40,7 +47,7 @@ public class WordCount extends Configured implements Tool {
 
         job.setOutputFormatClass(TextOutputFormat.class);
 
-        TextOutputFormat.setOutputPath(job, new Path("C:\\Users\\leo\\Desktop\\wc"));
+        TextOutputFormat.setOutputPath(job, new Path("hdfs://node01:8020/wc"));
 
         job.setNumReduceTasks(3);
 
