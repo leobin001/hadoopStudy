@@ -17,6 +17,11 @@ public class WordCount extends Configured implements Tool {
     @Override
     public int run(String[] strings) throws Exception {
         Configuration conf = super.getConf();
+
+        //设置提交的队列
+        //conf.set("mapred.job.queue.name", "develop");
+
+        //压缩
         //conf.set("mapreduce.map.output.compress","true");
         //conf.set("mapreduce.map.output.compress.codec","org.apache.hadoop.io.compress.SnappyCodec");
 
@@ -28,14 +33,14 @@ public class WordCount extends Configured implements Tool {
         job.setJarByClass(WordCount.class);
 
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.addInputPath(job, new Path("hdfs://node01:8020/wordCountData"));
+        TextInputFormat.addInputPath(job, new Path("hdfs://node01:8020/studyData"));
 
         //job.setInputFormatClass(CombineTextInputFormat.class);
         //CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);
         //CombineTextInputFormat.addInputPath(job, new Path("hdfs://node01:8020/studyData"));
 
         //规约
-        job.setCombinerClass(CombinerClass.class);
+        //job.setCombinerClass(CombinerClass.class);
 
         job.setMapperClass(MyMapper.class);
         job.setMapOutputKeyClass(Text.class);
