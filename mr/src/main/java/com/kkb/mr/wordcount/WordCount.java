@@ -19,7 +19,7 @@ public class WordCount extends Configured implements Tool {
         Configuration conf = super.getConf();
 
         //设置提交的队列
-        //conf.set("mapred.job.queue.name", "develop");
+        //conf.set("mapred.job.queue.name", "hadoop");
 
         //压缩
         //conf.set("mapreduce.map.output.compress","true");

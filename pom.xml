@@ -11,6 +11,7 @@
     <modules>
         <module>hdsf</module>
         <module>mr</module>
+        <module>zookeeper</module>
     </modules>
 
 
