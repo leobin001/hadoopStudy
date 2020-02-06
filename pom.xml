@@ -12,6 +12,7 @@
         <module>hdsf</module>
         <module>mr</module>
         <module>zookeeper</module>
+        <module>hive</module>
     </modules>
 
 
